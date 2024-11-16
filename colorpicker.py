@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import ttk
 from PIL import Image, ImageTk
 import pyautogui
 import keyboard
@@ -183,20 +184,29 @@ root = tk.Tk()
 root.title("Color Picker from Image with Zoom")
 img = tk.PhotoImage(data=icon)
 root.tk.call('wm', 'iconphoto', root._w, img)
-# Create a canvas to display the image
-canvas = tk.Canvas(root)
-canvas.pack(padx=10, pady=10)
+
+# Set the theme to ttk
+style = ttk.Style()
+style.theme_use("clam")  # You can change this to "alt", "classic", or other themes
+
+# Create a frame for layout
+frame = ttk.Frame(root)
+frame.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+# Create a canvas to display the image (canvas does not have a ttk equivalent)
+canvas = tk.Canvas(frame)
+canvas.pack(fill=tk.BOTH, expand=True)
 
 # Button to open the image
-open_button = tk.Button(root, text="Open Image", command=open_image)
+open_button = ttk.Button(frame, text="Open Image", command=open_image)
 open_button.pack(pady=10)
 
 # Label to display the selected color in RGB and Hex
-color_label = tk.Label(root, text="Selected color will appear here", width=30, height=5)
+color_label = ttk.Label(frame, text="Selected color will appear here", width=30, anchor="center")
 color_label.pack(pady=10)
 
 # Button to display the color as a background color and copy to clipboard when clicked
-color_display = tk.Button(root, text="Copy Color to Clipboard", width=30, height=5, command=copy_color_to_clipboard)
+color_display = tk.Button(frame, text="Copy Color to Clipboard", width=30, command=copy_color_to_clipboard)
 color_display.pack(pady=10)
 
 # Bind mouse click event to pick color
